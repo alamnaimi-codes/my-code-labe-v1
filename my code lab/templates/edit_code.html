@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Code File</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        body { background: #0f172a; color: white; }
+        .container { max-width: 900px; margin: 40px auto; padding: 24px; background: #1e293b; border: 1px solid #334155; border-radius: 12px; }
+        .controls { display: flex; gap: 12px; margin-bottom: 16px; }
+        input, select, textarea { width: 100%; padding: 12px; border-radius: 7px; border: 1px solid #475569; background: #0f172a; color: white; }
+        textarea { min-height: 380px; resize: vertical; font-family: Consolas, monospace; }
+        .actions { display: flex; gap: 12px; margin-top: 16px; }
+        button { border: none; background: #16a34a; color: white; padding: 12px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .cancel { background: #64748b; text-decoration: none; display: inline-block; padding: 12px 18px; border-radius: 8px; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="/update-code/{{ code_file['id'] }}" method="POST">
+            <div class="controls">
+                <input type="text" name="filename" value="{{ code_file['filename'] }}" required>
+                <select name="language" required>
+                    <option value="C" {% if code_file['language'] == 'C' %}selected{% endif %}>C</option>
+                    <option value="C++" {% if code_file['language'] == 'C++' %}selected{% endif %}>C++</option>
+                    <option value="Python" {% if code_file['language'] == 'Python' %}selected{% endif %}>Python</option>
+                    <option value="Java" {% if code_file['language'] == 'Java' %}selected{% endif %}>Java</option>
+                    <option value="JavaScript" {% if code_file['language'] == 'JavaScript' %}selected{% endif %}>JavaScript</option>
+                    <option value="SQL" {% if code_file['language'] == 'SQL' %}selected{% endif %}>SQL</option>
+                </select>
+            </div>
+            <textarea name="code" required>{{ code_file['code'] }}</textarea>
+            <div class="actions">
+                <button type="submit">Save Code</button>
+                <a href="/editor" class="cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
