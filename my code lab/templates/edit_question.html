@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Question</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        body { background: #f4f7fb; color: #222; }
+        .container { max-width: 700px; margin: 60px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
+        h1 { margin-bottom: 20px; }
+        form { display: flex; flex-direction: column; gap: 14px; }
+        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; }
+        textarea { min-height: 140px; resize: vertical; }
+        .actions { display: flex; gap: 12px; margin-top: 10px; }
+        button { border: none; background: #2563eb; color: white; padding: 12px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .cancel { background: #64748b; text-decoration: none; display: inline-block; padding: 12px 18px; border-radius: 8px; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Question</h1>
+        <form action="/update-question/{{ question['id'] }}" method="POST">
+            <input type="text" name="title" value="{{ question['title'] }}" required>
+            <textarea name="question" required>{{ question['question'] }}</textarea>
+            <select name="language" required>
+                <option value="C" {% if question['language'] == 'C' %}selected{% endif %}>C</option>
+                <option value="C++" {% if question['language'] == 'C++' %}selected{% endif %}>C++</option>
+                <option value="Python" {% if question['language'] == 'Python' %}selected{% endif %}>Python</option>
+                <option value="Java" {% if question['language'] == 'Java' %}selected{% endif %}>Java</option>
+                <option value="SQL" {% if question['language'] == 'SQL' %}selected{% endif %}>SQL</option>
+            </select>
+            <div class="actions">
+                <button type="submit">Save Changes</button>
+                <a href="/" class="cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
